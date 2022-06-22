@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dawei.boot.boothelloword.mapper.UserBillLogOpMapper">
+	<resultMap id="BaseResultMap" type="com.dawei.boot.boothelloword.mapper.entry.UserBillLogPo">
+		<id column="op_id" property="opId" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="BIGINT"/>
+		<result column="gold_type" property="goldType" jdbcType="INTEGER"/>
+		<result column="gold_num" property="goldNum" jdbcType="BIGINT"/>
+		<result column="bill_type" property="billType" jdbcType="INTEGER"/>
+		<result column="channel_type" property="channelType" jdbcType="INTEGER"/>
+		<result column="bill_mark" property="billMark" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="BIGINT"/>
+
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+	    	op_id, user_id, gold_type, gold_num, bill_type, channel_type, bill_mark, create_time
+	</sql>
+
+
+	<insert id="insetUserBillOpLog" parameterType="com.dawei.boot.boothelloword.mapper.entry.UserBillLogPo">
+		INSERT INTO t_planet_bill_log (op_id, user_id, gold_type, gold_num, bill_type, channel_type, bill_mark, create_time)
+		VALUES (#{opId, jdbcType=VARCHAR},
+				#{userId, jdbcType=BIGINT},
+				#{goldType, jdbcType=INTEGER},
+				#{goldNum, jdbcType=BIGINT},
+				#{billType, jdbcType=INTEGER},
+				#{channelType, jdbcType=INTEGER},
+				#{billMark, jdbcType=VARCHAR},
+				#{createTime, jdbcType=BIGINT})
+	</insert>
+
+
+</mapper>

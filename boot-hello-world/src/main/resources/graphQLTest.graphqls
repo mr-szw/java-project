@@ -1,0 +1,18 @@
+schema {
+    query: BookQuery
+}
+
+type BookQuery {
+    GetBookById(id: Int) : BookInfo
+}
+
+type BookInfo {
+    id: Int,
+    bookName: String,
+    buildingTime: Int,
+    authorInfo: AuthorInfo
+}
+type AuthorInfo {
+    id: Int,
+    authorName: String
+}

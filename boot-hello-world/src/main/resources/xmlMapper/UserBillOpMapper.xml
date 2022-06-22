@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dawei.boot.boothelloword.mapper.UserBillOpMapper">
+	<resultMap id="BaseResultMap" type="com.dawei.boot.boothelloword.mapper.entry.UserBillPo">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="user_id" property="userId" jdbcType="BIGINT"/>
+		<result column="gold_type" property="goldType" jdbcType="INTEGER"/>
+		<result column="gold_count" property="goldCount" jdbcType="BIGINT"/>
+		<result column="create_time" property="createTime" jdbcType="BIGINT"/>
+		<result column="update_time" property="updateTime" jdbcType="BIGINT"/>
+		<result column="update_version" property="updateVersion" jdbcType="VARCHAR"/>
+
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+	    	id, user_id, gold_type, gold_count, create_time, update_time, update_version
+	</sql>
+
+
+	<insert id="insertUserBill" parameterType="com.dawei.boot.boothelloword.mapper.entry.UserBillPo">
+		INSERT INTO t_planet_bill
+		 (user_id, gold_type, gold_count, create_time, update_time, update_version)
+		VALUES (#{userId, jdbcType=BIGINT},
+				#{goldType, jdbcType=INTEGER},
+				#{goldCount, jdbcType=BIGINT},
+				#{createTime, jdbcType=BIGINT},
+				#{updateTime, jdbcType=BIGINT},
+				#{updateVersion, jdbcType=BIGINT})
+	</insert>
+
+
+	<select id="selectUserBill" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_planet_bill
+		WHERE
+		user_id = #{userId, jdbcType=BIGINT}
+		AND gold_type = #{goldType, jdbcType=INTEGER}
+	</select>
+
+	<update id="updateBillByUserIdAndLastVersion">
+		UPDATE t_planet_bill
+		SET
+		gold_count = gold_count + #{opNum, jdbcType=BIGINT},
+		update_version = #{lastVersion, jdbcType=VARCHAR},
+		update_time =  #{updateTime, jdbcType=BIGINT}
+		WHERE
+		user_id = #{userId, jdbcType=BIGINT}
+		AND  gold_type = #{goldType, jdbcType=INTEGER} AND update_version != #{lastVersion, jdbcType=VARCHAR}
+
+	</update>
+
+
+</mapper>
