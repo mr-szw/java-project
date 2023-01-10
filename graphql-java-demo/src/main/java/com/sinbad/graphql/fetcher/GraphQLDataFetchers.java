@@ -1,8 +1,8 @@
-package com.sinbad.demo.graphql.demo.fetcher;
+package com.sinbad.graphql.fetcher;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-import com.sinbad.demo.graphql.demo.fetcher.pojo.BookPojo;
+import com.google.gson.JsonObject;
 import graphql.schema.DataFetcher;
 
 import java.util.Arrays;
@@ -42,10 +42,10 @@ public class GraphQLDataFetchers {
 					"lastName", "Rice")
 	);
 
-	public DataFetcher<BookPojo> getAllBooks() {
+	public DataFetcher<JsonObject> getAllBooks() {
 		return dataFetchingEnvironment -> {
 			Map<String, Object> arguments = dataFetchingEnvironment.getArgument("book");
-			BookPojo book = gson.get().fromJson(gson.get().toJson(arguments), BookPojo.class);
+			JsonObject book = gson.get().fromJson(gson.get().toJson(arguments), JsonObject.class);
 			return book;
 		};
 	}
